@@ -14,6 +14,13 @@
 #### Phone Number API
  - GET /voiceconfig/phonenumbers- [Get the list of Twilio Phone Numbers](#get-the-list-of-twilio-phone-numbers).
 
+
+#### Voice Config API
+ - GET /voiceconfig/configs- [Get the list of Voice Configs](#get-the-list-of-voice-config).
+ - POST /voiceconfig/configs- [Create a Voice Config](#create-a-voice-config).
+ - PUT /voiceconfig/configs/{id} - [Update the Voice Config](#update-the-voice-config). 
+ - DELETE /voiceconfig/configs/{id} - [Delete the Voice Config](#delete-the-voice-config). 
+
 #### Phone Line API
  - GET /voiceconfig/phonelines- [Get the list of Twilio Phone Lines](#get-the-list-of-twilio-phone-numbers).
  - POST /voiceconfig/phonelines- [Create a Twilio Phone Line](#create-a-agent-2fa-config).
