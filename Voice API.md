@@ -23,9 +23,8 @@
 
 
 ## Endpoints
-
-### Verify the 2FA Code of Agent
-`POST /global/endlogin`
+### Create a client token sample
+`GET /voicetwilio/token`
 
 #### Parameters
   | Name | Type | Required  | Description |     
@@ -58,3 +57,59 @@ HTTP/1.1 400 OK
    "message":"",
 }
 ```
+
+
+### Create a client token
+`GET /voicetwilio/token`
+
+#### Parameters
+  | Name | Type | Required  | Description |     
+  | - | - | - | - | 
+  
+  #### Response
+The Response body contains data with the following 
+  | Name  | Type | Required  | Description |     
+  | - | - | - | - | 
+  |`token` | string | yes |  jwt token for voice client register | 
+ 
+```Json 
+  HTTP/1.1 200 OK
+  Content-Type: application/json
+{
+"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImN0eSI6InR3aWxpby1mcGE7dj0xIn0.eyJpc3MiOiJTSzliZjJjMzVmNGYzNDg1OTZmZjVmYWI4NjNjNWY5YTBlIiwiZXhwIjoxNjcyODA2MjQ2LCJqdGkiOiJTSzliZjJjMzVmNGYzNDg1OTZmZjVmYWI4NjNjNWY5YTBlLTE2NzI4MDI2NDYiLCJzdWIiOiJBQ2ZjZjRhYWIwZDA5ZmExM2Q0ZjM4Y2JhN2YxNDBkZjg1IiwiZ3JhbnRzIjp7ImlkZW50aXR5Ijoic3VwcG9ydF9hZ2VudCIsInZvaWNlIjp7ImluY29taW5nIjp7ImFsbG93Ijp0cnVlfSwib3V0Z29pbmciOnsiYXBwbGljYXRpb25fc2lkIjoiQVA1MGViNTJiNmViMzYxMWVhNzA5Mzk1ZWFlMWQwZDcyYiJ9fX19.seHbLAY6PA8wkiXlfXFwpXsMMvsiL1tcl7T8E6V6yeM"
+}
+
+HTTP/1.1 400 OK
+{
+   "error": "Timeout",
+   "message":"",
+}
+```
+### Twilio voice callback url
+`POST /voicetwilio/voice`
+
+#### Parameters
+  | Name | Type | Required  | Description |     
+  | - | - | - | - | 
+  | `callSid` | string | yes | call resource sid |  
+  | `from` |string |yes| call in phonenumber or clientid|  
+  #### Response
+The Response body contains data with the following 
+  | Name  | Type | Required  | Description |     
+  | - | - | - | - | 
+  |`Data` | string | no | TwiMLResult | 
+```Json 
+  HTTP/1.1 200 OK
+  Content-Type: application/json
+{
+   "Verifiedtoken":"sdfasdf3452tsdfsd4werrtewr"
+   "jwtToken":"sdfasdf3452t4werrtewr"
+}
+
+HTTP/1.1 400 OK
+{
+   "error": "Timeout",
+   "message":"",
+}
+```
+
