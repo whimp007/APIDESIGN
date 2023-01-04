@@ -17,9 +17,26 @@
 ### Phone Line API
  - GET /voiceconfig/phonelines- [Get the list of Twilio Phone Lines](#get-the-list-of-twilio-phone-numbers).
  - POST /voiceconfig/phonelines- [Create a Twilio Phone Line](#create-a-agent-2fa-config).
- - UPDATE /voiceconfig/phonelines/{Id} - [Update the Twilio Phone Line](#update-the-agent-2fa-config). 
- - DELETE /voiceconfig/phonelines/{Id} - [Delete the Twilio Phone Line](#delete-the-2fa-config-of-agent). 
+ - PUT /voiceconfig/phonelines/{id} - [Update the Twilio Phone Line](#update-the-twilio-phone-line). 
+ - DELETE /voiceconfig/phonelines/{id} - [Delete the Twilio Phone Line](#delete-the-twilio-phone-line). 
+ - 
+### Voice Agent API
+ - GET /voiceconfig/voiceagents- [Get the list of Voice Agents](#get-the-list-of-voice-agents).
+ - POST /voiceconfig/voiceagents- [Create a Voice Agent](#create-a-voice-agent).
+ - PUT /voiceconfig/voiceagents/{id} - [Update the Voice Agent](#update-the-voice-agent). 
+ - DELETE /voiceconfig/voiceagents/{id} - [Delete the Voice Agent](#delete-the-voice-agent). 
 
+### Voice Call API
+ - GET /voiceconfig/calls- [Get the list of Voice Agents](#get-the-list-of-twilio-phone-numbers).
+ - POST /voiceconfig/calls- [Create a Voice Agent](#create-a-voice-agent).
+ - PUT /voiceconfig/calls/{id} - [Update the Voice Agent](#update-the-twilio-phone-line). 
+ - DELETE /voiceconfig/calls/{id} - [Delete the Voice Agent](#delete-the-twilio-phone-line). 
+
+### Voice CallLog API
+ - GET /voiceconfig/voiceagents- [Get the list of Voice Agents](#get-the-list-of-twilio-phone-numbers).
+ - POST /voiceconfig/voiceagents- [Create a Voice Agent](#create-a-agent-2fa-config).
+ - PUT /voiceconfig/voiceagents/{id} - [Update the Voice Agent](#update-the-twilio-phone-line). 
+ - DELETE /voiceconfig/voiceagents/{id} - [Delete the Voice Agent](#delete-the-twilio-phone-line). 
 
 ## Endpoints
 ### Create a client token sample
