@@ -7,8 +7,7 @@
 ### Voice Twilio Service API
  - GET /voicetwilio/token -[Create a Client Token ](#create-a-client-token).
  - POST /voicetwilio/voice - [Twilio Voice Callback URL](#twilio-voice-callback-url). 
- - POST /voicetwilio/statuscallback - [Twilio Voice Status Callback URL](#twilio-voice-status-callback-url). 
- - POST /voicetwilio/fallback - [Twilio Voice Fallback URL](#twilio-voice-fallback-url). 
+ - POST /voicetwilio/statuscallback - [Twilio Voice Status Callback URL](#twilio-voice-status-callback-url).  
 
 ### Voice Config Service API
 
@@ -23,9 +22,8 @@
 
 
 ## Endpoints
-
-### Verify the 2FA Code of Agent
-`POST /global/endlogin`
+### Create a client token sample
+`GET /voicetwilio/token`
 
 #### Parameters
   | Name | Type | Required  | Description |     
@@ -58,3 +56,144 @@ HTTP/1.1 400 OK
    "message":"",
 }
 ```
+
+
+### Create a client token
+`GET /voicetwilio/token`
+
+#### Parameters
+  | Name | Type | Required  | Description |     
+  | - | - | - | - | 
+  
+  #### Response
+The Response body contains data with the following 
+  | Name  | Type | Required  | Description |     
+  | - | - | - | - | 
+  |`token` | string | yes |  jwt token for voice client register | 
+ 
+```Json 
+  HTTP/1.1 200 OK
+  Content-Type: application/json
+{      "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImN0eSI6InR3aWxpby1mcGE7dj0xIn0.eyJpc3MiOiJTSzliZjJjMzVmNGYzNDg1OTZmZjVmYWI4NjNjNWY5YTBlIiwiZXhwIjoxNjcyODA2MjQ2LCJqdGkiOiJTSzliZjJjMzVmNGYzNDg1OTZmZjVmYWI4NjNjNWY5YTBlLTE2NzI4MDI2NDYiLCJzdWIiOiJBQ2ZjZjRhYWIwZDA5ZmExM2Q0ZjM4Y2JhN2YxNDBkZjg1IiwiZ3JhbnRzIjp7ImlkZW50aXR5Ijoic3VwcG9ydF9hZ2VudCIsInZvaWNlIjp7ImluY29taW5nIjp7ImFsbG93Ijp0cnVlfSwib3V0Z29pbmciOnsiYXBwbGljYXRpb25fc2lkIjoiQVA1MGViNTJiNmViMzYxMWVhNzA5Mzk1ZWFlMWQwZDcyYiJ9fX19.seHbLAY6PA8wkiXlfXFwpXsMMvsiL1tcl7T8E6V6yeM"
+}
+
+HTTP/1.1 400 OK
+{
+   "error": "Timeout",
+   "message":"",
+}
+```
+### Twilio voice callback url
+`POST /voicetwilio/voice`
+
+#### Parameters
+  | Name | Type | Required  | Description |     
+  | - | - | - | - | 
+  | `callSid` | string | yes | call resource sid |  
+  | `from` |string |yes| call in phonenumber or clientid|  
+  #### Response
+The Response body contains data with the following 
+  | Name  | Type | Required  | Description |     
+  | - | - | - | - | 
+  |`data` | string | no | TwiMLResult that twilio deal | 
+```Json 
+  HTTP/1.1 200 OK
+  Content-Type: application/json
+{
+   "data":"<?xml version="1.0" encoding="UTF-8"?>
+          <Response>
+            <Say voice="alice">hello world!</Say>
+          </Response>"   
+}
+
+HTTP/1.1 400 OK
+{
+   "error": "Timeout",
+   "message":"",
+}
+```
+## Endpoints
+### Twilio voice status callback url
+`GET /voicetwilio/statuscallback`
+
+#### Parameters
+  | Name | Type | Required  | Description |     
+  | - | - | - | - | 
+  | `callSid` | string | yes | call resource sid |  
+  | `from` |string |yes| call in phonenumber or clientid|
+  | `to` |string |yes| call to phonenumber or clientid|
+  | `callStatus` |enum ([callStatus](#callStatus-Response))|yes| call status|
+  #### Response
+The Response body contains data with the following 
+  | Name  | Type | Required  | Description |     
+  | - | - | - | - | 
+  |`data` | string | no | TwiMLResult that twilio deal |  
+```Json 
+  HTTP/1.1 200 OK
+  Content-Type: application/json
+{
+   "data":"<?xml version="1.0" encoding="UTF-8"?>
+          <Response>
+            <Say voice="alice">hello world!</Say>
+          </Response>"   
+}
+
+HTTP/1.1 400 OK
+{
+   "error": "Timeout",
+   "message":"",
+}
+```
+### Get the list of twilio phone numbers
+`GET /voiceconfig/phonenumbers`
+
+#### Parameters
+Path parameters
+
+  | Name  | Type | Required  | Description |     
+  | - | - | - | - | 
+  | `CountryCode` | String | yes  |   |
+
+#### Response
+The Response body contains data with the following structure:
+
+  | Name  | Type | Description |     
+  | - | - | - | 
+  | `phoneNumberList`  | [PhoneNumber](#PhoneNumber-object)[] | - | 
+  
+  ### PhoneNumber Object
+|Name| Type|  Default |  Description     |
+| - | - | :-: |  - | 
+  | `phoneNumber` | String ||sample: 604) xx0-8183  |  
+  | `countryCode` | String | |two-letter country codes which are also used to create the ISO 3166-2 country subdivision codes and the Internet country code top-level domains.  |  
+
+#### Example
+Response
+```Json
+  HTTP/1.1 200 OK
+  Content-Type:  application/json
+{
+  "phoneNumberList":[
+    {
+      "phoneNumber": "604) xx0-8183",    
+      "CountryCode": "US",    
+    }
+  ]
+}
+```
+
+# Model
+### callStatus Response
+Configuration to set up audio encoder. The encoding determines the output audio format that we'd like.
+|Enums| | 
+| - | - | 
+|`queued` | 	Twilio has received your request to create the call. All new calls are created with a status of queued. | 
+|`initiated` | Twilio has dialed the call. | 
+|`ringing` | The destination number has started ringing. | 
+|`in-progress` | The call has been connected, and the connection is currently active. | 
+|`completed` | The connected call has now been disconnected. Completed calls will remain in this state in going forward. | 
+|`busy` | Twilio dialed the number, but received a busy response. | 
+|`no-answer` | Twilio dialed the number but no one answered before the timeout parameter value elapsed. This can be configured for each call, but by default is set to 60 seconds on outbound API calls, and 30 seconds on outbound <Dial> calls. |
+|`canceled` | Prior to being answered, an outbound call was canceled via an HTTP POST request to the REST API, or an incoming call was disconnected by the calling party |
+|`failed` | Twilio's carriers could not connect the call. Possible causes include the destination is unreachable, or the number may have been input incorrectly. |
+
