@@ -97,13 +97,15 @@ HTTP/1.1 400 OK
 The Response body contains data with the following 
   | Name  | Type | Required  | Description |     
   | - | - | - | - | 
-  |`Data` | string | no | TwiMLResult | 
+  |`data` | string | no | TwiMLResult | 
 ```Json 
   HTTP/1.1 200 OK
   Content-Type: application/json
 {
-   "Verifiedtoken":"sdfasdf3452tsdfsd4werrtewr"
-   "jwtToken":"sdfasdf3452t4werrtewr"
+   "data":"<?xml version="1.0" encoding="UTF-8"?>
+          <Response>
+            <Say voice="alice">hello world!</Say>
+          </Response>"   
 }
 
 HTTP/1.1 400 OK
