@@ -5,9 +5,17 @@
   ## Summary
 
 ### Voice Twilio Service API
- - GET /voicetwilio/token -[Create a Client Token ](#create-a-client-token).
+
+#### Twilio API
  - POST /voicetwilio/voice - [Twilio Voice Callback URL](#twilio-voice-callback-url). 
  - POST /voicetwilio/statuscallback - [Twilio Voice Status Callback URL](#twilio-voice-status-callback-url).  
+
+#### Agent Console API
+ - Post /voicetwilio/tokens -[Create a Client Token ](#create-a-client-token).
+ - POST /voicetwilio/calls/{id}:transfer - [Transfer new call](#transfer-new-call). 
+ - POST /voicetwilio/calls/{id}:onhold - [On hold call](#on-hold-call). 
+ - POST /voicetwilio/calls/{id}:resume - [Resume Call](#resume-call).
+ - POST /voicetwilio/agent/{agentid}/status - [Resume Call](#resume-call).
 
 ### Voice Config Service API
 
