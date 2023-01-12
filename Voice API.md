@@ -7,16 +7,16 @@
 ### Voice Twilio Service API
 
 #### Twilio API
- - POST /voicetwilio/voice - [Twilio Voice Callback URL](#twilio-voice-callback-url). 
- - POST /voicetwilio/statuscallback - [Twilio Voice Status Callback URL](#twilio-voice-status-callback-url). 
- - POST /voicetwilio/gather - [Twilio Voice Status Callback URL](#twilio-voice-status-callback-url).  
+ - POST /voicetwilio/voice - [Twilio voice income callback URL](#twilio-voice-income-callback-url). 
+ - POST /voicetwilio/statuscallback - [Twilio voice status callback URL](#twilio-voice-status-callback-url). 
+ - POST /voicetwilio/gather - [Gather call user input callback URL](#gather-call-user-input-callback-url).  
 
 #### Agent Console API
  - Post /voicetwilio/tokens -[Create a Client Token ](#create-a-client-token).
  - POST /voicetwilio/calls/{id}:transfer - [Transfer new call](#transfer-new-call). 
  - POST /voicetwilio/calls/{id}:onhold - [On hold call](#on-hold-call). 
  - POST /voicetwilio/calls/{id}:resume - [Resume Call](#resume-call).
- - POST /voicetwilio/agent/{agentid}/status - [Resume Call](#resume-call).
+ - POST /voicetwilio/agent/{agentid}/status - [Update agent status](#update-agent-status).
 
 ### Voice Config Service API
 
@@ -116,7 +116,7 @@ HTTP/1.1 400 OK
    "message":"",
 }
 ```
-### Twilio voice callback url
+### Twilio voice income callback url
 `POST /voicetwilio/voice`
 
 #### Parameters
@@ -147,7 +147,7 @@ HTTP/1.1 400 OK
 ```
 ## Endpoints
 ### Twilio voice status callback url
-`GET /voicetwilio/statuscallback`
+`POST /voicetwilio/statuscallback`
 
 #### Parameters
   | Name | Type | Required  | Description |     
@@ -177,6 +177,129 @@ HTTP/1.1 400 OK
    "message":"",
 }
 ```
+
+### Gather call user input callback url
+`POST /voicetwilio/gather`
+
+#### Parameters
+  | Name | Type | Required  | Description |     
+  | - | - | - | - | 
+  | `callSid` | string | yes | call resource sid |  
+  | `from` |string |yes| call in phonenumber or clientid|
+  | `to` |string |yes| call to phonenumber or clientid|
+  | `callStatus` |enum ([callStatus](#callStatus-Response))|yes| call status|
+  | `speechResult` |string)|yes| speech result|
+  | `digits` |string|yes| dtmf result|
+  | `finishedOnKey` |string|yes| dtmf finished key|
+  #### Response
+The Response body contains data with the following 
+  | Name  | Type | Required  | Description |     
+  | - | - | - | - | 
+  |`data` | string | no | TwiMLResult that twilio deal |  
+```Json 
+  HTTP/1.1 200 OK
+  Content-Type: application/json
+{
+   "data":"<?xml version="1.0" encoding="UTF-8"?>
+          <Response>
+            <Say voice="alice">hello world!</Say>
+          </Response>"   
+}
+
+HTTP/1.1 400 OK
+{
+   "error": "Timeout",
+   "message":"",
+}
+```
+### Transfer new call
+` POST /voicetwilio/calls/{id}:transfer`
+
+#### Parameters
+  | Name | Type | Required  | Description |     
+  | - | - | - | - | 
+  | `callSid` | string | yes | call resource sid |  
+  | `type` |enum |yes| phonenumber,client|
+  | `to` |string |yes| transfer to distination|  
+  #### Response
+The Response body contains data with the following 
+  | Name  | Type | Required  | Description |     
+  | - | - | - | - |   
+```Json 
+  HTTP/1.1 200 OK
+  
+
+HTTP/1.1 400 OK
+{
+   "error": "Timeout",
+   "message":"",
+}
+```
+### On hold call
+`POST /voicetwilio/calls/{id}:onhold`
+
+#### Parameters
+  | Name | Type | Required  | Description |     
+  | - | - | - | - | 
+  | `callSid` | string | yes | call resource sid |  
+  
+  #### Response
+The Response body contains data with the following 
+  | Name  | Type | Required  | Description |     
+  | - | - | - | - | 
+  
+```Json 
+  HTTP/1.1 200 OK 
+
+HTTP/1.1 400 OK
+{
+   "error": "Timeout",
+   "message":"",
+}
+```
+### Resume call
+`POST /voicetwilio/calls/{id}:resume`
+
+#### Parameters
+  | Name | Type | Required  | Description |     
+  | - | - | - | - | 
+  | `callSid` | string | yes | call resource sid | 
+  #### Response
+The Response body contains data with the following 
+  | Name  | Type | Required  | Description |     
+  | - | - | - | - |  
+```Json 
+  HTTP/1.1 200 OK  
+
+HTTP/1.1 400 OK
+{
+   "error": "Timeout",
+   "message":"",
+}
+```
+### Update agent status
+`POST /voicetwilio/agent/{agentid}/status`
+
+#### Parameters
+  | Name | Type | Required  | Description |     
+  | - | - | - | - | 
+  | `agentid` | string | yes | agent id |    
+  | `available` |bool |yes | is agent available to call |
+  #### Response
+The Response body contains data with the following 
+  | Name  | Type | Required  | Description |     
+  | - | - | - | - |   
+```Json 
+  HTTP/1.1 200 OK
+ 
+
+HTTP/1.1 400 OK
+{
+   "error": "Timeout",
+   "message":"",
+}
+```
+
 ### Get the list of twilio phone numbers
 `GET /voiceconfig/phonenumbers`
 
