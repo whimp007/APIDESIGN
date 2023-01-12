@@ -91,31 +91,7 @@ HTTP/1.1 400 OK
 ```
 
 
-### Create a client token
-`GET /voicetwilio/token`
 
-#### Parameters
-  | Name | Type | Required  | Description |     
-  | - | - | - | - | 
-  
-  #### Response
-The Response body contains data with the following 
-  | Name  | Type | Required  | Description |     
-  | - | - | - | - | 
-  |`token` | string | yes |  jwt token for voice client register | 
- 
-```Json 
-  HTTP/1.1 200 OK
-  Content-Type: application/json
-{      "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImN0eSI6InR3aWxpby1mcGE7dj0xIn0.eyJpc3MiOiJTSzliZjJjMzVmNGYzNDg1OTZmZjVmYWI4NjNjNWY5YTBlIiwiZXhwIjoxNjcyODA2MjQ2LCJqdGkiOiJTSzliZjJjMzVmNGYzNDg1OTZmZjVmYWI4NjNjNWY5YTBlLTE2NzI4MDI2NDYiLCJzdWIiOiJBQ2ZjZjRhYWIwZDA5ZmExM2Q0ZjM4Y2JhN2YxNDBkZjg1IiwiZ3JhbnRzIjp7ImlkZW50aXR5Ijoic3VwcG9ydF9hZ2VudCIsInZvaWNlIjp7ImluY29taW5nIjp7ImFsbG93Ijp0cnVlfSwib3V0Z29pbmciOnsiYXBwbGljYXRpb25fc2lkIjoiQVA1MGViNTJiNmViMzYxMWVhNzA5Mzk1ZWFlMWQwZDcyYiJ9fX19.seHbLAY6PA8wkiXlfXFwpXsMMvsiL1tcl7T8E6V6yeM"
-}
-
-HTTP/1.1 400 OK
-{
-   "error": "Timeout",
-   "message":"",
-}
-```
 ### Twilio voice income callback url
 `POST /voicetwilio/voice`
 
@@ -212,6 +188,31 @@ HTTP/1.1 400 OK
    "message":"",
 }
 ```
+### Create a client token
+`GET /voicetwilio/token`
+
+#### Parameters
+  | Name | Type | Required  | Description |     
+  | - | - | - | - | 
+  
+  #### Response
+The Response body contains data with the following 
+  | Name  | Type | Required  | Description |     
+  | - | - | - | - | 
+  |`token` | string | yes |  jwt token for voice client register | 
+ 
+```Json 
+  HTTP/1.1 200 OK
+  Content-Type: application/json
+{          "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImN0eSI6InR3aWxpby1mcGE7dj0xIn0.eyJpc3MiOiJTSzliZjJjMzVmNGYzNDg1OTZmZjVmYWI4NjNjNWY5YTBlIiwiZXhwIjoxNjcyODA2MjQ2LCJqdGkiOiJTSzliZjJjMzVmNGYzNDg1OTZmZjVmYWI4NjNjNWY5YTBlLTE2NzI4MDI2NDYiLCJzdWIiOiJBQ2ZjZjRhYWIwZDA5ZmExM2Q0ZjM4Y2JhN2YxNDBkZjg1IiwiZ3JhbnRzIjp7ImlkZW50aXR5Ijoic3VwcG9ydF9hZ2VudCIsInZvaWNlIjp7ImluY29taW5nIjp7ImFsbG93Ijp0cnVlfSwib3V0Z29pbmciOnsiYXBwbGljYXRpb25fc2lkIjoiQVA1MGViNTJiNmViMzYxMWVhNzA5Mzk1ZWFlMWQwZDcyYiJ9fX19.seHbLAY6PA8wkiXlfXFwpXsMMvsiL1tcl7T8E6V6yeM"
+}
+
+HTTP/1.1 400 OK
+{
+   "error": "Timeout",
+   "message":"",
+}
+```
 ### Transfer new call
 ` POST /voicetwilio/calls/{id}:transfer`
 
@@ -219,7 +220,7 @@ HTTP/1.1 400 OK
   | Name | Type | Required  | Description |     
   | - | - | - | - | 
   | `callSid` | string | yes | call resource sid |  
-  | `type` |enum |yes| phonenumber,client|
+  | `type` |enum ([TransferToType](#TransferToType-Response)) |yes| phonenumber,client|
   | `to` |string |yes| transfer to distination|  
   #### Response
 The Response body contains data with the following 
@@ -340,7 +341,7 @@ Response
 
 # Model
 ### callStatus Response
-Configuration to set up audio encoder. The encoding determines the output audio format that we'd like.
+Call status.
 |Enums| | 
 | - | - | 
 |`queued` | 	Twilio has received your request to create the call. All new calls are created with a status of queued. | 
@@ -352,4 +353,11 @@ Configuration to set up audio encoder. The encoding determines the output audio 
 |`no-answer` | Twilio dialed the number but no one answered before the timeout parameter value elapsed. This can be configured for each call, but by default is set to 60 seconds on outbound API calls, and 30 seconds on outbound <Dial> calls. |
 |`canceled` | Prior to being answered, an outbound call was canceled via an HTTP POST request to the REST API, or an incoming call was disconnected by the calling party |
 |`failed` | Twilio's carriers could not connect the call. Possible causes include the destination is unreachable, or the number may have been input incorrectly. |
+  
+### TransferToType Responsee
+Transfer to type.
+|Enums| | 
+| - | - | 
+|`phonenumber` | 	phonenumber. | 
+|`client` | software phone client. | 
 
