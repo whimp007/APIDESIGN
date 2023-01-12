@@ -220,7 +220,7 @@ HTTP/1.1 400 OK
   | Name | Type | Required  | Description |     
   | - | - | - | - | 
   | `callSid` | string | yes | call resource sid |  
-  | `type` |enum ([TransferToType](#TransferToType-Response)) |yes| phonenumber,client|
+  | `type` |enum ([TransferToType](#Transfer-To-Type)) |yes| phonenumber,client|
   | `to` |string |yes| transfer to distination|  
   #### Response
 The Response body contains data with the following 
@@ -340,24 +340,27 @@ Response
 ```
 
 # Model
-### callStatus Response
-Call status.
-|Enums| | 
-| - | - | 
-|`queued` | 	Twilio has received your request to create the call. All new calls are created with a status of queued. | 
-|`initiated` | Twilio has dialed the call. | 
-|`ringing` | The destination number has started ringing. | 
-|`in-progress` | The call has been connected, and the connection is currently active. | 
-|`completed` | The connected call has now been disconnected. Completed calls will remain in this state in going forward. | 
-|`busy` | Twilio dialed the number, but received a busy response. | 
-|`no-answer` | Twilio dialed the number but no one answered before the timeout parameter value elapsed. This can be configured for each call, but by default is set to 60 seconds on outbound API calls, and 30 seconds on outbound <Dial> calls. |
-|`canceled` | Prior to being answered, an outbound call was canceled via an HTTP POST request to the REST API, or an incoming call was disconnected by the calling party |
-|`failed` | Twilio's carriers could not connect the call. Possible causes include the destination is unreachable, or the number may have been input incorrectly. |
-  
-### TransferToType Responsee
+### Transfer To Type
 Transfer to type.
 |Enums| | 
 | - | - | 
 |`phonenumber` | 	phonenumber. | 
 |`client` | software phone client. | 
+
+### callStatus Response
+  Call status.
+  |Enums| | 
+  | - | - | 
+  |`queued` | 	Twilio has received your request to create the call. All new calls are created with a status of queued. | 
+  |`initiated` | Twilio has dialed the call. | 
+  |`ringing` | The destination number has started ringing. | 
+  |`in-progress` | The call has been connected, and the connection is currently active. | 
+  |`completed` | The connected call has now been disconnected. Completed calls will remain in this state in going forward. | 
+  |`busy` | Twilio dialed the number, but received a busy response. | 
+  |`no-answer` | Twilio dialed the number but no one answered before the timeout parameter value elapsed. This can be configured for each call, but by default is set to 60 seconds on outbound API calls, and 30 seconds on outbound <Dial> calls. |
+  |`canceled` | Prior to being answered, an outbound call was canceled via an HTTP POST request to the REST API, or an incoming call was disconnected by the calling party |
+  |`failed` | Twilio's carriers could not connect the call. Possible causes include the destination is unreachable, or the number may have been input incorrectly. |
+
+  
+
 
