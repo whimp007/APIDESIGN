@@ -17,6 +17,7 @@
  - POST /voicetwilio/calls/{id}:onhold - [On hold call](#on-hold-call). 
  - POST /voicetwilio/calls/{id}:resume - [Resume Call](#resume-call).
  - POST /voicetwilio/agent/{agentid}/status - [Update agent status](#update-agent-status).
+ - POST /voicetwilio/agent/{agentid}/heartbeat - [Notify server agent heartbeat](#Notify-server-agent-heartbeat).
 
 ### Voice Config Service API
 
@@ -220,7 +221,7 @@ HTTP/1.1 400 OK
 #### Parameters
   | Name | Type | Required  | Description |     
   | - | - | - | - | 
-  | `callSid` | string | yes | call resource sid |  
+  | `id` | string | yes | twilio call resource sid |  
   | `type` |enum ([TransferToType](#Transfer-To-Type)) |yes| phonenumber,client|
   | `to` |string |yes| transfer to distination|  
   #### Response
@@ -243,7 +244,7 @@ HTTP/1.1 400 OK
 #### Parameters
   | Name | Type | Required  | Description |     
   | - | - | - | - | 
-  | `callSid` | string | yes | call resource sid |  
+  | `id` | string | yes | twilio call resource sid |  
   
   #### Response
 The Response body contains data with the following 
@@ -265,7 +266,7 @@ HTTP/1.1 400 OK
 #### Parameters
   | Name | Type | Required  | Description |     
   | - | - | - | - | 
-  | `callSid` | string | yes | call resource sid | 
+  | `id` | string | yes | twilio call resource sid | 
   #### Response
 The Response body contains data with the following 
   | Name  | Type | Required  | Description |     
@@ -286,7 +287,27 @@ HTTP/1.1 400 OK
   | Name | Type | Required  | Description |     
   | - | - | - | - | 
   | `agentid` | string | yes | agent id |    
-  | `available` |bool |yes | is agent available to call |
+  | `status` |enum ([AgentStatus](#Agent-Status))  |yes | agent status |
+  #### Response
+The Response body contains data with the following 
+  | Name  | Type | Required  | Description |     
+  | - | - | - | - |   
+```Json 
+  HTTP/1.1 200 OK
+ 
+
+HTTP/1.1 400 OK
+{
+   "error": "Timeout",
+   "message":"",
+}
+```
+### Notify server agent heartbeat
+`POST /voicetwilio/agent/{agentid}/heartbeat`
+
+#### Parameters
+  | Name | Type | Required  | Description |     
+  | - | - | - | - |   
   #### Response
 The Response body contains data with the following 
   | Name  | Type | Required  | Description |     
@@ -320,8 +341,8 @@ The Response body contains data with the following structure:
   | `phoneNumberList`  | [PhoneNumber](#PhoneNumber-object)[] | - | 
   
   ### PhoneNumber Object
-|Name| Type|  Default |  Description     |
-| - | - | :-: |  - | 
+  |Name| Type|  Default |  Description     |
+  | - | - | :-: |  - | 
   | `phoneNumber` | String ||sample: 604) xx0-8183  |  
   | `countryCode` | String | |two-letter country codes which are also used to create the ISO 3166-2 country subdivision codes and the Internet country code top-level domains.  |  
 
@@ -347,6 +368,15 @@ Transfer to type.
 | - | - | 
 |`phonenumber` | 	phonenumber. | 
 |`client` | software phone client. | 
+
+### Agent Status
+Agent Status
+|Enums| | 
+| - | - | 
+|`offline` | 	Any status can be switched to this status. When the agent closes his browser or loses Twilio connection, the agent status switches to this status. | 
+|`available` | When the agent's status is in call and completed a call, or when the agent's status is unavailable and manually set to available.  | 
+|`unavailable` | When the agent first connected to Twilio or manually set to unavailable status.  | 
+|`inCall` | when the agent is available, the agent dials or picks up.   | 
 
 ### callStatus Response
   Call status.
