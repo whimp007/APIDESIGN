@@ -7,9 +7,9 @@
 ### Voice Twilio Service API
 
 #### Twilio API
- - POST /voicetwilio/voice - [Twilio voice income callback URL](#twilio-voice-income-callback-url). 
- - POST /voicetwilio/statuscallback - [Twilio voice status callback URL](#twilio-voice-status-callback-url). 
- - POST /voicetwilio/gather - [Gather call user input callback URL](#gather-call-user-input-callback-url).  
+ - POST /voicetwilio/twilio/voice - [Twilio voice income callback URL](#twilio-voice-income-callback-url). 
+ - POST /voicetwilio/twilio/statuscallback - [Twilio voice status callback URL](#twilio-voice-status-callback-url). 
+ - POST /voicetwilio/twilio/gather - [Gather call user input callback URL](#gather-call-user-input-callback-url).  
 
 #### Agent Console API
  - Post /voicetwilio/agent/{agentid}/tokens -[Create a Client Token ](#create-a-client-token).
@@ -95,7 +95,7 @@ HTTP/1.1 400 OK
 
 
 ### Twilio voice income callback url
-`POST /voicetwilio/voice`
+`POST /voicetwilio/twilio/voice`
 
 #### Parameters
   | Name | Type | Required  | Description |     
@@ -125,7 +125,7 @@ HTTP/1.1 400 OK
 ```
 ## Endpoints
 ### Twilio voice status callback url
-`POST /voicetwilio/statuscallback`
+`POST /voicetwilio/twilio/statuscallback`
 
 #### Parameters
   | Name | Type | Required  | Description |     
@@ -157,7 +157,7 @@ HTTP/1.1 400 OK
 ```
 
 ### Gather call user input callback url
-`POST /voicetwilio/gather`
+`POST /voicetwilio/twilio/gather`
 
 #### Parameters
   | Name | Type | Required  | Description |     
