@@ -12,9 +12,9 @@
  - POST /voicetwilio/twilio/gather - [Gather call user input callback URL](#gather-call-user-input-callback-url).  
 
 #### Agent Console API
- - Post /voicetwilio/agent/{agentid}/tokens -[Create a Client Token ](#create-a-client-token).
- - POST /voicetwilio/agent/{agentid}/status - [Update agent status](#update-agent-status).
- - POST /voicetwilio/agent/{agentid}/heartbeats - [Notify server agent heartbeat](#Notify-server-agent-heartbeat).
+ - Post /voicetwilio/agents/{agentid}/tokens -[Create a Client Token ](#create-a-client-token).
+ - POST /voicetwilio/agents/{agentid}/status - [Update agent status](#update-agent-status).
+ - POST /voicetwilio/agents/{agentid}/heartbeats - [Notify server agent heartbeat](#Notify-server-agent-heartbeat).
  - POST /voicetwilio/calls/{id}:transfer - [Transfer new call](#transfer-new-call). 
  - POST /voicetwilio/calls/{id}:onhold - [On hold call](#on-hold-call). 
  - POST /voicetwilio/calls/{id}:resume - [Resume Call](#resume-call).
@@ -191,7 +191,7 @@ HTTP/1.1 400 OK
 }
 ```
 ### Create a client token
-`POST /voicetwilio/agent/{agentid}/tokens`
+`POST /voicetwilio/agents/{agentid}/tokens`
 
 #### Parameters
   | Name | Type | Required  | Description |     
@@ -283,7 +283,7 @@ HTTP/1.1 400 OK
 }
 ```
 ### Update agent status
-`POST /voicetwilio/agent/{agentid}/status`
+`POST /voicetwilio/agents/{agentid}/status`
 
 #### Parameters
   | Name | Type | Required  | Description |     
@@ -305,7 +305,7 @@ HTTP/1.1 400 OK
 }
 ```
 ### Notify server agent heartbeat
-`POST /voicetwilio/agent/{agentid}/heartbeats`
+`POST /voicetwilio/agents/{agentid}/heartbeats`
 
 #### Parameters
   | Name | Type | Required  | Description |     
