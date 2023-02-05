@@ -1,23 +1,22 @@
+
   | Change Version | API Version | Change nots | Change Date | Author |Architect Team Reviewer | 
   | - | - | - | - | - |- |
-  | 1.0 | v1 |Comm100 Voice API | 2023-02-03 | Leon|  Allon|
+  | 1.0 | v1 |Comm100 Voice API | 2023-02-05 | Leon|  Allon|
  
   ## Summary
-
-### Voice Channel Service API
 
 ### Voice Channel Adapter API 
 
 The channelURL can be any valid URL that implements this API, and it is configured in the system when a new channel needs to access. 
-  - POST /{channelURL} - [Voice Channel Adapter receives input](#voice-channel-adapter-receives-input). 
+  - POST /{adapterURL} - [Voice Channel Adapter receives input](#voice-channel-adapter-receives-input). 
 
-#### Voice Channel API
+### Voice Channel API
  - POST /voicechannel/calls - [create a call session](#create-a-call-session). 
  - POST /voicechannel/calls/{id}/inputs - [Receives a call input](#receives-a-call-input). 
  - POST /voicechannel/calls/{id}/status - [Update the call status](#update-the-call-status).  
 
-#### Agent Console Voice App API
- - POST /voicechannel/agents/{agentid}/tokens -[Create a Client Token ](#create-a-client-token).
+### Voice Channel Agent Console API
+ <!-- - POST /voicechannel/agents/{agentid}/tokens -[Create a Client Token ](#create-a-client-token). -->
  - POST /voicechannel/agents/{agentid}/status - [Update agent status](#update-agent-status).
  - POST /voicechannel/agents/{agentid}/heartbeats - [Notify server agent heartbeat](#Notify-server-agent-heartbeat).
  - POST /voicechannel/calls/{id}:transfer - [Transfer new call](#transfer-new-call). 
@@ -28,16 +27,15 @@ The channelURL can be any valid URL that implements this API, and it is configur
 ## Endpoints
 
 ## Voice Channel Adapter API 
-The ChannelURL can be any valid URL that implements this API, and it is configured in the system when a new channel needs to access.  
+The AdapterURL can be any valid URL that implements this API, and it is configured in the system when a new channel needs to access.  
 
 ### Voice Channel Adapter Receives Input
-`POST /{channelURL}`
+`POST /{adapterURL}`
 
 
 #### Parameters
 Request body
 Request body the request body contains data with the following structure: 
-Request body is Voice Message Object 
   | Name | Type | Required | Default | Description |    
   | - | - | :-: | :-: | - | 
   | `callId` | string | yes | |  channelIdentifier .  |
@@ -45,20 +43,16 @@ Request body is Voice Message Object
   
 #### example:
 ```Json 
+  HTTP/1.1 200 OK
+  Content-Type:  application/json 
   {     
-          "callId":"d3f5b968-ad51-42af-b759-64c0afc40b84", 
-          "content": [{ 
-	        "type":"playAudioAction",
-		"content":{ 
-			"type":"voice",
-                        "voice":"string", 
-    	        	"voiceConfig":{ 
-                 		 "encoding": "LINEAR16" , 
-                  		"sampleRateHertz": 8000, 
-              		 },
-			 
-                }
-         }] 
+    "callId":"d3f5b968-ad51-42af-b759-64c0afc40b84", 
+    "content": [{ 
+    "type":"playText",
+    "content":{ 
+    "message": "Hi there! I'm a Voice, here to help answer your questions."			 
+        }
+    }] 
 } 
 ```
 
@@ -68,9 +62,11 @@ Request body is Voice Message Object
 #### Parameters
   | Name | Type | Required  | Description |     
   | - | - | - | - | 
-  | `callSid` | string | yes | call resource sid |  
-  | `from` |string |yes| call in phonenumber or clientid|
-  | `to` |string |yes| call in phonenumber or clientid|
+  | `callSid` | string | yes | call origin sid |  
+  | `contact` |string |yes| contact phonenumber |
+  | `phoneNumber` |string |yes| call in phonenumber |
+  | `agent` |string |no| AgentName|
+  | `type` |string |Yes| `Inbound`,`Outbound`|
   #### Response
 The Response body contains data with the following 
   | Name  | Type | Required  | Description |     
@@ -82,13 +78,13 @@ The Response body contains data with the following
   HTTP/1.1 200 OK
   Content-Type:  application/json 
   {     
-          "callId":"d3f5b968-ad51-42af-b759-64c0afc40b84", 
-          "content":[{ 
-              "type":"playText", 
-              "content":{ 
-                    "message": "Hi there! I'm a Voice, here to help answer your questions.", 
-              } 
-            }] 
+    "callId":"d3f5b968-ad51-42af-b759-64c0afc40b84", 
+    "content":[{ 
+        "type":"playText", 
+        "content":{ 
+            "message": "Hi there! I'm a Voice, here to help answer your questions.", 
+        } 
+    }] 
   } 
 
 HTTP/1.1 400 OK
@@ -104,8 +100,6 @@ HTTP/1.1 400 OK
   | Name | Type | Required  | Description |     
   | - | - | - | - | 
   | `callSid` | string | yes | call resource sid |  
-  | `from` |string |yes| call in phonenumber or clientid|
-  | `to` |string |yes| call to phonenumber or clientid|
   | `callStatus` |enum ([callStatus](#callStatus-Response))|yes| call status|
   | `speechResult` |string)|yes| speech result|
   | `digits` |string|yes| dtmf result|
@@ -121,10 +115,12 @@ The Response body contains data with the following structure:
   HTTP/1.1 200 OK
   Content-Type: application/json
 {
-   "data":"<?xml version="1.0" encoding="UTF-8"?>
-          <Response>
-            <Say voice="alice">hello world!</Say>
-          </Response>"   
+    "content":[{ 
+        "type":"playText", 
+        "content":{ 
+            "message": "Hi there! I'm a Voice, here to help answer your questions.", 
+        } 
+    }] 
 }
 
 HTTP/1.1 400 OK
@@ -143,21 +139,24 @@ HTTP/1.1 400 OK
   | `callSid` | string | yes | call resource sid |  
   | `from` |string |yes| call in phonenumber or clientid|
   | `to` |string |yes| call to phonenumber or clientid|
-  | `callStatus` |enum ([callStatus](#callStatus-Response))|yes| call status|
+  | `callStatus` |enum ([CallStatus](#callstatus))|yes| call status|
 
 #### Response
 The Response body contains data with the following 
   | Name  | Type | Required  | Description |     
   | - | - | - | - | 
-  |`data` | string | no | TwiMLResult that twilio deal |  
+  |`content`  |  [VoiceAction](#voiceaction-object)[]  |   |
+
 ```Json 
   HTTP/1.1 200 OK
   Content-Type: application/json
 {
-   "data":"<?xml version="1.0" encoding="UTF-8"?>
-          <Response>
-            <Say voice="alice">hello world!</Say>
-          </Response>"   
+    "content":[{ 
+        "type":"playText", 
+        "content":{ 
+            "message": "Hi there! I'm a Voice, here to help answer your questions.", 
+        } 
+    }] 
 }
 
 HTTP/1.1 400 OK
@@ -167,7 +166,7 @@ HTTP/1.1 400 OK
 }
 ```
 
-### Create a client token
+<!-- ### Create a client token
 `POST /voicechannel/agents/{agentid}/tokens`
 
 #### Parameters
@@ -193,15 +192,15 @@ HTTP/1.1 400 OK
    "error": "Timeout",
    "message":"",
 }
-```
-### Transfer new call
+``` -->
+### Transfer a call
 ` POST /voicechannel/calls/{id}:transfer`
 
 #### Parameters
   | Name | Type | Required  | Description |     
   | - | - | - | - | 
-  | `id` | string | yes | twilio call resource sid |  
-  | `type` |enum ([TransferToType](#Transfer-To-Type)) |yes| phonenumber,client|
+  | `callid` | string | yes | call id |  
+  | `type` |string |yes|  type of the response,including `phonenumber`,`client`,`department`|
   | `to` |string |yes| transfer to distination|  
   #### Response
 The Response body contains data with the following 
@@ -217,13 +216,14 @@ HTTP/1.1 400 OK
    "message":"",
 }
 ```
+
 ### On hold call
 `POST /voicechannel/calls/{id}:onhold`
 
 #### Parameters
   | Name | Type | Required  | Description |     
   | - | - | - | - | 
-  | `id` | string | yes | twilio call resource sid |  
+  | `callId` | string | yes | call Id |  
   
   #### Response
 The Response body contains data with the following 
@@ -245,7 +245,7 @@ HTTP/1.1 400 OK
 #### Parameters
   | Name | Type | Required  | Description |     
   | - | - | - | - | 
-  | `id` | string | yes | twilio call resource sid | 
+  | `callId` | string | yes |call Id | 
   #### Response
 The Response body contains data with the following 
   | Name  | Type | Required  | Description |     
@@ -308,7 +308,7 @@ HTTP/1.1 400 OK
   |Name| Type| Default | Description     | 
   | - | - | :-: | - | 
   | `type` | string | | type of the response,including `PlayAudio`,`PlayText`,`IVRMenu`,`RouteCall`,`EndCall`,`StartRecording`,`StopRecording`|
-  | `content` | object | |  response's content. when type is `PlayAudio`, it represents [PlayAudio](#playaudio-object); when type is `PlayText`,it represents [PlayText](#playtext-object);when type is `EndCall`, it represents [EndCall](#endcall-object);when type is `IVRMenu`, it represents [IVRMenu](#ivrmenu-object);when type is `TransferCall`, it represents [RouteCall](#routecall-object);when type is `StartRecording`, it represents [StartRecording](#startrecording-object);when type is `StopRecording`, it represents [StopRecording](#stoprecording-object);|
+  | `content` | object | |  response's content. when type is `PlayAudio`, it represents [PlayAudio](#playaudio-object); when type is `PlayText`,it represents [PlayText](#playtext-object);when type is `EndCall`, it represents [EndCall](#endcall-object);when type is `IVRMenu`, it represents [IVRMenu](#ivrmenu-object);when type is `TransferCall`, it represents [RouteCall](#routecall-object);when type is `StartRecording`, it represents [StartRecording](#startrecording-object);when type is `StopRecording`, it represents [StopRecording](#stoprecording-object);when type is `CallControle`, it represents [CallControle](#callcontrole-object);|
   
 ## PlayAudio Object  
   Text Response is represented as simple flat json objects with the following keys: 
@@ -348,26 +348,23 @@ HTTP/1.1 400 OK
   | - | - | :-: | - | 
   | `message` | String  | | String  |
   | `greetingType ` | String  | | Type of the greeting,including `PlayMessage`,`PlayAudio`.  |
-  | `audioPath ` | String  | | Thr url of audio.  |
+  | `audioPath ` | String  | | The url of audio.  |
 
-
-### Transfer To Type
-Transfer to type.
-|Enums| | 
-| - | - | 
-|`phonenumber` | 	phonenumber. | 
-|`client` | software phone client. | 
+## CallControle Object   
+  |Name| Type | Default | Description | 
+  | - | - | :-: | - | 
+  | `Type` | String  | | Type of the Call Controle,including `Hold`,`Resume`  |
 
 ### Agent Status
 Agent Status
 |Enums| | 
 | - | - | 
 |`offline` | 	Any status can be switched to this status. When the agent closes his browser or loses Twilio connection, the agent status switches to this status. | 
-|`available` | When the agent's status is in call and completed a call, or when the agent's status is unavailable and manually set to available.  | 
-|`unavailable` | When the agent first connected to Twilio or manually set to unavailable status.  | 
+|`online` | When the agent's status is in call and completed a call, or when the agent's status is away and manually set to online.  | 
+|`away` | When the agent first connected to Twilio or manually set to away status.  | 
 |`inCall` | when the agent is available, the agent dials or picks up.   | 
 
-### callStatus Response
+### CallStatus
   Call status.
   |Enums| | 
   | - | - | 
