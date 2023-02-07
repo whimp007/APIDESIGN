@@ -7,11 +7,11 @@
 
 ### Voice Channel Agent Console API
  <!-- - POST /voicechannel/agents/{agentid}/tokens -[Create a Client Token ](#create-a-client-token). -->
- - POST /voicechannel/agents/{agentid}/status - [Update agent status](#update-agent-status).
- - POST /voicechannel/agents/{agentid}/heartbeats - [Notify server agent heartbeat](#Notify-server-agent-heartbeat).
- - POST /voicechannel/calls/{id}:transfer - [Transfer a call](#transfer-a-call). 
- - POST /voicechannel/calls/{id}:hold - [hold the call](#hold-the-call). 
- - POST /voicechannel/calls/{id}:resume - [Resume the Call](#resume-the-call).
+ - POST /voiceserver/agents/{agentid}/status - [Update agent status](#update-agent-status).
+ - POST /voiceserver/agents/{agentid}/heartbeats - [Notify server agent heartbeat](#Notify-server-agent-heartbeat).
+ - POST /voiceserver/calls/{id}:transfer - [Transfer a call](#transfer-a-call). 
+ - POST /voiceserver/calls/{id}:hold - [hold the call](#hold-the-call). 
+ - POST /voiceserver/calls/{id}:resume - [Resume the Call](#resume-the-call).
 
 ## Endpoints
 <!-- ### Create a client token
