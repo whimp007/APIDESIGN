@@ -7,7 +7,7 @@
 
 ### Voice Twilio Service API
 
-#### Twilio API
+#### Twilio Callback API
  - POST /voicetwilio/voice - [Twilio voice income callback URL](#twilio-voice-income-callback-url). 
  - POST /voicetwilio/statuscallback - [Twilio voice status callback URL](#twilio-voice-status-callback-url). 
  - POST /voicetwilio/gather - [Gather call user input callback URL](#gather-call-user-input-callback-url).  
@@ -17,43 +17,11 @@
  - POST /voicetwilio/calls/{id}:transfer - [Transfer new call](#transfer-new-call). 
  - POST /voicetwilio/calls/{id}:onhold - [On hold call](#on-hold-call). 
  - POST /voicetwilio/calls/{id}:resume - [Resume Call](#resume-call).
+
+ - GET /voicetwilio/phonenumbers  - [Get phone numbers](#Get-the-list-of-twilio-phone-numbers).
  
 
-### Voice Config Service API
 
-#### Phone Number API
- - GET /voiceconfig/phonenumbers- [Get the list of Twilio Phone Numbers](#get-the-list-of-twilio-phone-numbers).
-
-
-#### Voice Config API
- - GET /voiceconfig/configs- [Get the list of Voice Configs](#get-the-list-of-voice-config).
- - POST /voiceconfig/configs- [Create a Voice Config](#create-a-voice-config).
- - PUT /voiceconfig/configs/{id} - [Update the Voice Config](#update-the-voice-config). 
- - DELETE /voiceconfig/configs/{id} - [Delete the Voice Config](#delete-the-voice-config). 
-
-#### Phone Line API
- - GET /voiceconfig/phonelines- [Get the list of Twilio Phone Lines](#get-the-list-of-twilio-phone-numbers).
- - POST /voiceconfig/phonelines- [Create a Twilio Phone Line](#create-a-agent-2fa-config).
- - PUT /voiceconfig/phonelines/{id} - [Update the Twilio Phone Line](#update-the-twilio-phone-line). 
- - DELETE /voiceconfig/phonelines/{id} - [Delete the Twilio Phone Line](#delete-the-twilio-phone-line). 
-  
-#### Voice Agent API
- - GET /voiceconfig/voiceagents- [Get the list of Voice Agents](#get-the-list-of-voice-agents).
- - POST /voiceconfig/voiceagents- [Create a Voice Agent](#create-a-voice-agent).
- - PUT /voiceconfig/voiceagents/{id} - [Update the Voice Agent](#update-the-voice-agent). 
- - DELETE /voiceconfig/voiceagents/{id} - [Delete the Voice Agent](#delete-the-voice-agent). 
-
-#### Voice Call API
- - GET /voiceconfig/calls- [Get the list of calls](#get-the-list-of-calls).
- - POST /voiceconfig/calls- [Create a call](#create-a-call).
- - PUT /voiceconfig/calls/{id} - [Update the call](#update-the-call). 
- - DELETE /voiceconfig/calls/{id} - [Delete the call](#delete-the-call). 
-
-#### Voice CallLog API
- - GET /voiceconfig/calllogs- [Get the list of calllogs](#get-the-list-of-calllogs).
- - POST /voiceconfig/calllogs- [Create a calllog](#create-a-calllogs).
- - PUT /voiceconfig/calllogs/{id} - [Update the calllog](#update-the-calllog). 
- - DELETE /voiceconfig/calllogs/{id} - [Delete the calllog](#delete-the-calllog). 
 
 ## Endpoints
 ### Create a client token sample
@@ -283,7 +251,7 @@ HTTP/1.1 400 OK
 ```
 
 ### Get the list of twilio phone numbers
-`GET /voiceconfig/phonenumbers`
+`GET /voicetwilio/phonenumbers`
 
 #### Parameters
 Path parameters
