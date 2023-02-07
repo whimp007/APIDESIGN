@@ -156,7 +156,7 @@ Request body the request body contains data with the following structure:
   |Name| Type| Default | Description     | 
   | - | - | :-: | - | 
   | `type` | string | | type of the response,including `PlayAudio`,`PlayText`,`IVRMenu`,`RouteCall`,`EndCall`,`StartRecording`,`StopRecording`|
-  | `content` | object | |  response's content. when type is `PlayAudio`, it represents [PlayAudio](#playaudio-object); when type is `PlayText`,it represents [PlayText](#playtext-object);when type is `EndCall`, it represents [EndCall](#endcall-object);when type is `IVRMenu`, it represents [IVRMenu](#ivrmenu-object);when type is `TransferCall`, it represents [RouteCall](#routecall-object);when type is `StartRecording`, it represents [StartRecording](#startrecording-object);when type is `StopRecording`, it represents [StopRecording](#stoprecording-object);when type is `CallControle`, it represents [CallControl](#callcontrol-object);|
+  | `content` | object | |  response's content. when type is `PlayAudio`, it represents [PlayAudio](#playaudio-object); when type is `PlayText`,it represents [PlayText](#playtext-object);when type is `EndCall`, it represents [EndCall](#endcall-object);when type is `IVRMenu`, it represents [IVRMenu](#ivrmenu-object);when type is `TransferCall`, it represents [RouteCall](#routecall-object);when type is `StartRecording`, it represents [StartRecording](#startrecording-object);when type is `StopRecording`, it represents [StopRecording](#stoprecording-object);|
   
 ## PlayAudio Object  
   Text Response is represented as simple flat json objects with the following keys: 
@@ -197,11 +197,6 @@ Request body the request body contains data with the following structure:
   | `message` | String  | | String  |
   | `greetingType ` | String  | | Type of the greeting,including `PlayMessage`,`PlayAudio`.  |
   | `audioPath ` | String  | | The url of audio.  |
-
-## CallControl Object   
-  |Name| Type | Default | Description | 
-  | - | - | :-: | - | 
-  | `Type` | String  | | Type of the Call Controle,including `Hold`,`Resume`  |
 
 ### Agent Status
 Agent Status
