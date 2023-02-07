@@ -96,6 +96,7 @@ HTTP/1.1 400 OK
   | Name | Type | Required  | Description |     
   | - | - | - | - | 
   | `callStatus` |enum ([CallStatus](#callstatus))|yes| call status|
+  | `recordingUrl` |string |yes| |
 
 #### Response
 The Response body contains data with the following 
