@@ -13,9 +13,7 @@
  - POST /voicetwilio/gather - [Gather call user input callback URL](#gather-call-user-input-callback-url).  
 
 #### Agent Console API
- - Post /voicetwilio/agent/{agentid}/tokens -[Create a Client Token ](#create-a-client-token).
- - POST /voicetwilio/agent/{agentid}/status - [Update agent status](#update-agent-status).
- - POST /voicetwilio/agent/{agentid}/heartbeats - [Notify server agent heartbeat](#Notify-server-agent-heartbeat).
+ - Post /voicetwilio/agent/{agentid}/tokens -[Create a Client Token ](#create-a-client-token). 
  - POST /voicetwilio/calls/{id}:transfer - [Transfer new call](#transfer-new-call). 
  - POST /voicetwilio/calls/{id}:onhold - [On hold call](#on-hold-call). 
  - POST /voicetwilio/calls/{id}:resume - [Resume Call](#resume-call).
@@ -276,48 +274,6 @@ The Response body contains data with the following
   | - | - | - | - |  
 ```Json 
   HTTP/1.1 200 OK  
-
-HTTP/1.1 400 OK
-{
-   "error": "Timeout",
-   "message":"",
-}
-```
-### Update agent status
-`POST /voicetwilio/agent/{agentid}/status`
-
-#### Parameters
-  | Name | Type | Required  | Description |     
-  | - | - | - | - | 
-  | `agentid` | string | yes | agent id |    
-  | `status` |enum ([AgentStatus](#Agent-Status))  |yes | agent status |
-  #### Response
-The Response body contains data with the following 
-  | Name  | Type | Required  | Description |     
-  | - | - | - | - |   
-```Json 
-  HTTP/1.1 200 OK
- 
-
-HTTP/1.1 400 OK
-{
-   "error": "Timeout",
-   "message":"",
-}
-```
-### Notify server agent heartbeat
-`POST /voicetwilio/agent/{agentid}/heartbeats`
-
-#### Parameters
-  | Name | Type | Required  | Description |     
-  | - | - | - | - |   
-  #### Response
-The Response body contains data with the following 
-  | Name  | Type | Required  | Description |     
-  | - | - | - | - |   
-```Json 
-  HTTP/1.1 200 OK
- 
 
 HTTP/1.1 400 OK
 {
