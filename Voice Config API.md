@@ -235,3 +235,82 @@ Response
   | `country` | String  | | Country/region of the visitor  |
   | `city` | String  | | City of the visitor  |
 
+## VoiceActionStart Object   
+  |Name| Type | Default | Description | 
+  | - | - | :-: | - | 
+  | `VoiceActionId` | Guid  | | Voice action id  |
+  | `NextActionId` | Guid  | | Next voice action id.  |
+ 
+ ## VoiceActionPlayMessage Object   
+  |Name| Type | Default | Description | 
+  | - | - | :-: | - | 
+  | `VoiceActionId` | Guid  | | Voice action Id  |
+  | `NextActionId` | Guid  | | Next voice action id.  |
+  | `Message` | string  | | Message of playing.  |
+  |
+  
+ ## VoiceActionPlayAudio Object   
+  |Name| Type | Default | Description | 
+  | - | - | :-: | - | 
+  | `VoiceActionId` | Guid  | | Voice action id  |
+  | `NextActionId` | Guid  | | Next voice action id.  |
+  | `Name` | string  | | Audio name.  |
+  | `AudioPath` | string  | | Audio path.  | 
+  
+ ## VoiceActionIVRMenu Object   
+  |Name| Type | Default | Description | 
+  | - | - | :-: | - | 
+  | `VoiceActionId` | Guid  | | Voice action id  |  
+  | `Message` | string  | | Message.  |
+  | `InvalidInputMessage` | string  | | Invalid input message.  | 
+  | `InvalidInputRepeatTime` | int  | | Invalid input repeatTime.  | 
+  | `ActionIdWhenInvalidInput` | string  | | ActionId When Invalid Input.  | 
+  | `GreetingType` | int  | | Type of Message,0:message, 1:audio.  | 
+  | `AudioPath` | string  | | Audio path.  | 
+  
+ ## VoiceActionIVRMenuOption Object   
+  |Name| Type | Default | Description | 
+  | - | - | :-: | - | 
+  | `VoiceActionId` | Guid  | | Voice action id  |
+  | `NextActionId` | Guid  | | Next voice action id.  |
+  | `Key` | string  | | Key of IVR menu option.  |
+  | `Order` | int  | | Order of IVR menu option.  | 
+  
+ ## VoiceActionStartRecording Object   
+  |Name| Type | Default | Description | 
+  | - | - | :-: | - | 
+  | `VoiceActionId` | Guid  | | Voice action id  |
+  | `NextActionId` | Guid  | | Next voice action id.  |  
+  
+ ## VoiceActionStopRecording Object   
+  |Name| Type | Default | Description | 
+  | - | - | :-: | - | 
+  | `VoiceActionId` | Guid  | | Voice action id  |
+  | `NextActionId` | Guid  | | Next voice action id.  |
+  
+ ## VoiceActionOperatingScheduleCondition Object   
+  |Name| Type | Default | Description | 
+  | - | - | :-: | - | 
+  | `VoiceActionId` | Guid  | | Voice action id  |
+  | `VoiceOperatingScheduleId` | Guid  | | Voice operating schedule Id.  | 
+  | `ActionWhenInOperatingSchedule` | Guid  | | Action when in operating schedule.  | 
+  | `ActionWhenOutOperatingSchedule` | Guid  | | Action when out operating schedule.  | 
+  
+  ## VoiceActionRouteCall Object   
+  |Name| Type | Default | Description | 
+  | - | - | :-: | - | 
+  | `VoiceActionId` | Guid  | | Voice action id  |
+  | `Type` | Guid  | | Type of voice action route call:agent,phonenumber,department .  | 
+  | `RouteTo` | Guid  | | route To object guid.  | 
+  | `RouteToPhoneNumber` | string  | | route to phone number .  | 
+  
+ ## VoiceActionEndCall Object   
+  |Name| Type | Default | Description | 
+  | - | - | :-: | - | 
+  | `VoiceActionId` | Guid  | | Voice action id  |  
+  
+ 
+  
+  
+  
+  
